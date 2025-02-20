@@ -1,4 +1,5 @@
 export const generateRandomWords = (count: number): string[] => {
+    // TODO: Use an external word gen library / api
     const wordList = [
         'apple', 'banana', 'cherry', 'date', 'fig', 'grape', 'kiwi', 
         'lemon', 'mango', 'nectarine', 'orange', 'papaya', 'quince', 

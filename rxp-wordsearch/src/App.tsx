@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import WordSearchGrid from './components/WordSearchGrid.tsx';
+import WordSearchControls from './components/WordSearchControls.tsx';
+import { generateRandomWords } from './utils/wordGenerator';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [grid, setGrid] = useState<string[][]>([]);
+  const [words, setWords] = useState<string[]>([]);
+  const [gridSize, setGridSize] = useState<number>(10); // Default grid size
+  
+  useEffect(() => {
+    generateNewPuzzle();
+  }, [gridSize]);
+  
+  const generateNewPuzzle = () => {
+    const newWords = generateRandomWords(gridSize);
+    setWords(newWords); //This is pointless since the state doesn't really update until the next render
+    // Logic to generate the grid based on newWords
+    // This should include placing the words in the grid
+    const newGrid = createGridWithWords(words, gridSize);
+    setGrid(newGrid);
+  };
+
+  const createGridWithWords = (words: string[], size: number) => {
+    // Placeholder for grid generation logic
+    console.log('words:', words);
+    const emptyGrid = Array.from({ length: size }, () => Array(size).fill(''));
+    // Logic to place words in the grid goes here
+    // This should include placing the words horizontally, vertically, and diagonally
+    
+    // This should also include filling the rest of the grid with random letters
+
+    return emptyGrid;
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <h1>Word Search Puzzle</h1>
+      <WordSearchControls onNewGame={generateNewPuzzle} setGridSize={setGridSize} />
+      <WordSearchGrid grid={grid} />
+    </div>
+  );
 }
 
 export default App

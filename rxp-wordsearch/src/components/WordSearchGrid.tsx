@@ -5,6 +5,8 @@ interface WordSearchGridProps {
 }
 
 const WordSearchGrid: React.FC<WordSearchGridProps> = ({ grid }) => {
+    console.log('grid', grid);
+    
   return (
     <div className="word-search-grid">
       {grid.map((row, rowIndex) => (
